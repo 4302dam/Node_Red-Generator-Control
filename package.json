@@ -1,0 +1,12 @@
+{
+    "name": "Exergy_Generator_Control",
+    "description": "The flows associated with getting market data and controlling the generator. ",
+    "version": "0.0.1",
+    "dependencies": {},
+    "node-red": {
+        "settings": {
+            "flowFile": "flows.json",
+            "credentialsFile": "flows_cred.json"
+        }
+    }
+}
