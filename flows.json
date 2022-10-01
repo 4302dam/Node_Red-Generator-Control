@@ -902,7 +902,9 @@
         "tls": "",
         "persist": false,
         "proxy": "",
+        "insecureHTTPParser": false,
         "authType": "",
+        "senderr": false,
         "x": 590,
         "y": 500,
         "wires": [
@@ -1012,7 +1014,9 @@
         "tls": "",
         "persist": true,
         "proxy": "",
+        "insecureHTTPParser": false,
         "authType": "basic",
+        "senderr": false,
         "x": 390,
         "y": 360,
         "wires": [
@@ -1069,6 +1073,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 390,
         "y": 500,
         "wires": [
@@ -1129,11 +1134,12 @@
         "type": "function",
         "z": "bcad67a.8ddbf98",
         "name": "Form Message for vtenext",
-        "func": "msg.headers = {\n   \"Authorization\": \"Basic YWRtaW46bFNUeGpCWjlWYmU3VVA1ZQ==\" \n  };\nvar dResp = flow.get(\"dResp\");\nvar spread = flow.get(\"spread\");\nif ( dResp == \"True\")\n{msg.payload = {\n    \"id\": flow.get(\"accountID\"),\n    \"columns\": JSON.stringify({\"cf_snz_1375\":\"Back\",\"cf_1095\":\"True\",\"cf_snz_1378\":flow.get(\"spread\")}\n   )}}\n   else\n  { msg.payload = {\n    \"id\": flow.get(\"accountID\"),\n    \"columns\": JSON.stringify({\"cf_snz_1375\":\"Back\",\"cf_1095\":\"False\",\"cf_snz_1378\":flow.get(\"spread\")}\n   )}}\nreturn msg\n\n\n    \n\n",
+        "func": "msg.headers = {\n  \"Authorization\": \"Basic YWRtaW46bFNUeGpCWjlWYmU3VVA1ZQ==\"\n    };\n//msg.url = \"http://ec2-3-216-239-69.compute-1.amazonaws.com/restapi/v1/vtews/update\";\nvar dResp = flow.get(\"dResp\");\nvar spread = flow.get(\"spread\");\nif ( dResp == \"True\")\n{msg.payload = {\n    \"id\": flow.get(\"accountID\"),\n    \"columns\": JSON.stringify({\"cf_snz_1375\":\"Back\",\"cf_1095\":\"True\",\"cf_snz_1378\":flow.get(\"spread\")}\n   )}}\n   else\n  { msg.payload = {\n    \"id\": flow.get(\"accountID\"),\n    \"columns\": JSON.stringify({\"cf_snz_1375\":\"Back\",\"cf_1095\":\"False\",\"cf_snz_1378\":flow.get(\"spread\")}\n   )}}\nreturn msg\n\n\n    \n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 410,
         "y": 600,
         "wires": [
@@ -1155,7 +1161,9 @@
         "tls": "",
         "persist": false,
         "proxy": "",
+        "insecureHTTPParser": false,
         "authType": "",
+        "senderr": false,
         "x": 660,
         "y": 600,
         "wires": [
