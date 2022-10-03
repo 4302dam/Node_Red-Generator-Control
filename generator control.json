@@ -1,0 +1,478 @@
+[
+    {
+        "id": "bcad67a.8ddbf98",
+        "type": "tab",
+        "label": "Generator Control ",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d88ffa19.8b6438",
+        "type": "http request",
+        "z": "bcad67a.8ddbf98",
+        "name": "Call to SMC",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 590,
+        "y": 500,
+        "wires": [
+            [
+                "3139590d.a83a46"
+            ]
+        ]
+    },
+    {
+        "id": "6fda4173.28207",
+        "type": "debug",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "3139590d.a83a46",
+        "type": "json",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 730,
+        "y": 500,
+        "wires": [
+            [
+                "6fda4173.28207"
+            ]
+        ]
+    },
+    {
+        "id": "79f7d84e.afe6b8",
+        "type": "http request",
+        "z": "bcad67a.8ddbf98",
+        "name": "Get  Load Level",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "query",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 660,
+        "y": 420,
+        "wires": [
+            [
+                "67f7865f.0a4f38",
+                "47c2f748.6bfd48"
+            ]
+        ]
+    },
+    {
+        "id": "67f7865f.0a4f38",
+        "type": "debug",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "49edf42d.68f88c",
+        "type": "debug",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "ebd7f060.48838",
+        "type": "http request",
+        "z": "bcad67a.8ddbf98",
+        "name": "Get ERCOT Price",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://linkedupenergy.com/api/APIREST.php?command=getcurrentlmp&a={\"productid\":\"1\"}",
+        "tls": "",
+        "persist": true,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "x": 390,
+        "y": 360,
+        "wires": [
+            [
+                "ea423ac2.1068e8",
+                "d6f571f0.855be"
+            ]
+        ]
+    },
+    {
+        "id": "4486f4d.e02bd0c",
+        "type": "function",
+        "z": "bcad67a.8ddbf98",
+        "name": "Determine Demand Response",
+        "func": "var spread = (Number(flow.get(\"rtPrice\")) - Number(flow.get(\"strike\")));\nflow.set(\"spread\", spread)\nvar dResp = \"False\"\nif(Number(flow.get(\"rtPrice\"))>Number(flow.get(\"strike\")))\n{let dResp = \"True\";\nflow.set(\"dResp\", dResp)\n//msg.url =\"https://www.fieldpop.io/rest/method/fieldpop-api/getDeviceData?happn_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImlkfDAzYTVkYTgwLTI0Y2ItNGU1OS05OTMyLWI1ZjI4ZjFmMGM5NXx0eXBlfHRpbWVzdGFtcHxwYXJlbnRJZHxpc0VuY3J5cHRlZHxvcmlnaW58bWFpbl9icm9rZXJjMzk4NTNkNWY5MGU0MjM1ODFmMDI3MTgzZjQ0Mjk3Y3xwb2xpY3l8MHx0dGx8aW5hY3Rpdml0eV90aHJlc2hvbGR8MXxpc1Rva2VufHVzZXJuYW1lfG1hcmNoQGV4ZXJneWVuZXJneS5jb218dXNlcmlkfDJhZDM4OWNlLTVmY2EtNGQ5YS05ODRkLTg4YTc2NmJlNjM4NF4xfEtLNjY0NUQ0fDB8MF5eJDB8MXwyfEl8M3xKfDR8MXw1fC0yfDZ8N3w4fCQ5fCRBfEt8QnwtM118Q3wkQXxMfEJ8LTNdXXxEfC0xfEV8RnxHfEhdIg.h8oaL_uFseK5ykDKLPbnPGtyhral_0FyMkWzZiqtk4Q&deviceID=quiverkicker_CUtBb-ZrN\";\nmsg.payload = dResp}\nelse\n{//msg.url =\"https://www.fieldpop.io/rest/method/fieldpop-api/getDeviceData?happn_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImlkfDAzYTVkYTgwLTI0Y2ItNGU1OS05OTMyLWI1ZjI4ZjFmMGM5NXx0eXBlfHRpbWVzdGFtcHxwYXJlbnRJZHxpc0VuY3J5cHRlZHxvcmlnaW58bWFpbl9icm9rZXJjMzk4NTNkNWY5MGU0MjM1ODFmMDI3MTgzZjQ0Mjk3Y3xwb2xpY3l8MHx0dGx8aW5hY3Rpdml0eV90aHJlc2hvbGR8MXxpc1Rva2VufHVzZXJuYW1lfG1hcmNoQGV4ZXJneWVuZXJneS5jb218dXNlcmlkfDJhZDM4OWNlLTVmY2EtNGQ5YS05ODRkLTg4YTc2NmJlNjM4NF4xfEtLNjY0NUQ0fDB8MF5eJDB8MXwyfEl8M3xKfDR8MXw1fC0yfDZ8N3w4fCQ5fCRBfEt8QnwtM118Q3wkQXxMfEJ8LTNdXXxEfC0xfEV8RnxHfEhdIg.h8oaL_uFseK5ykDKLPbnPGtyhral_0FyMkWzZiqtk4Q&deviceID=quiverkicker_CUtBb-ZrN\";\nmsg.payload = dResp}\nreturn msg\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 360,
+        "wires": [
+            [
+                "436082a2.d5bc9c",
+                "4135e075.dd1f7"
+            ]
+        ]
+    },
+    {
+        "id": "47c2f748.6bfd48",
+        "type": "function",
+        "z": "bcad67a.8ddbf98",
+        "name": "Retrieve Load",
+        "func": "let load = 0\ntry {load = msg.payload.data[0].GensetBusTotalkW}\ncatch(err) {msg.payload = 0}\nreturn {payload:[load]}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 180,
+        "y": 500,
+        "wires": [
+            [
+                "dcac12f6.9eccd"
+            ]
+        ]
+    },
+    {
+        "id": "dcac12f6.9eccd",
+        "type": "function",
+        "z": "bcad67a.8ddbf98",
+        "name": "Control Generator",
+        "func": "let load = msg.payload[0];\nlet dResp = flow.get(\"dResp\")\nmsg.url = \"https://www.fieldpop.io/rest/method/fieldpop-api/setDeviceData?happn_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.ImlkfDAzYTVkYTgwLTI0Y2ItNGU1OS05OTMyLWI1ZjI4ZjFmMGM5NXx0eXBlfHRpbWVzdGFtcHxwYXJlbnRJZHxpc0VuY3J5cHRlZHxvcmlnaW58bWFpbl9icm9rZXJjMzk4NTNkNWY5MGU0MjM1ODFmMDI3MTgzZjQ0Mjk3Y3xwb2xpY3l8MHx0dGx8aW5hY3Rpdml0eV90aHJlc2hvbGR8MXxpc1Rva2VufHVzZXJuYW1lfG1hcmNoQGV4ZXJneWVuZXJneS5jb218dXNlcmlkfDJhZDM4OWNlLTVmY2EtNGQ5YS05ODRkLTg4YTc2NmJlNjM4NF4xfEtLNjY0NUQ0fDB8MF5eJDB8MXwyfEl8M3xKfDR8MXw1fC0yfDZ8N3w4fCQ5fCRBfEt8QnwtM118Q3wkQXxMfEJ8LTNdXXxEfC0xfEV8RnxHfEhdIg.h8oaL_uFseK5ykDKLPbnPGtyhral_0FyMkWzZiqtk4Q\";\nif(dResp ==\"True\")\nmsg.payload = {\n    \"parameters\": {\n        \"deviceID\": \"quiverkicker_CUtBb-ZrN\",\n        \"path\": \"BAC_IP_PCC_3300_5_/RemoteStartSwitchCMD\",\n        \"value\": 1\n    }\n}    \nelse\nmsg.payload = {\n    \"parameters\": {\n        \"deviceID\": \"quiverkicker_CUtBb-ZrN\",\n        \"path\": \"BAC_IP_PCC_3300_5_/RemoteStartSwitchCMD\",\n        \"value\": 0\n    }\t\n} \nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 390,
+        "y": 500,
+        "wires": [
+            [
+                "d88ffa19.8b6438",
+                "a92c9789.c0e6f8"
+            ]
+        ]
+    },
+    {
+        "id": "b135ba55.04ef08",
+        "type": "inject",
+        "z": "bcad67a.8ddbf98",
+        "name": "Test Inject Strike and ID",
+        "props": [
+            {
+                "p": "payload.accountID",
+                "v": "3x55",
+                "vt": "str"
+            },
+            {
+                "p": "payload.strikePrice",
+                "v": "90",
+                "vt": "num"
+            }
+        ],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "4ca3d888.f10bf8"
+            ]
+        ]
+    },
+    {
+        "id": "a92c9789.c0e6f8",
+        "type": "debug",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "4135e075.dd1f7",
+        "type": "function",
+        "z": "bcad67a.8ddbf98",
+        "name": "Form Message for vtenext",
+        "func": "msg.headers = {\n   \"Authorization\": \"Basic YWRtaW46bFNUeGpCWjlWYmU3VVA1ZQ==\" \n  };\nvar dResp = flow.get(\"dResp\");\nvar spread = flow.get(\"spread\");\nif ( dResp == \"True\")\n{msg.payload = {\n    \"id\": flow.get(\"accountID\"),\n    \"columns\": JSON.stringify({\"cf_snz_1375\":\"Back\",\"cf_1095\":\"True\",\"cf_snz_1378\":flow.get(\"spread\")}\n   )}}\n   else\n  { msg.payload = {\n    \"id\": flow.get(\"accountID\"),\n    \"columns\": JSON.stringify({\"cf_snz_1375\":\"Back\",\"cf_1095\":\"False\",\"cf_snz_1378\":flow.get(\"spread\")}\n   )}}\nreturn msg\n\n\n    \n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 600,
+        "wires": [
+            [
+                "cea1f99f.17d908",
+                "c49974c5.2cf208"
+            ]
+        ]
+    },
+    {
+        "id": "cea1f99f.17d908",
+        "type": "http request",
+        "z": "bcad67a.8ddbf98",
+        "name": "Update vtenext",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "query",
+        "url": "http://ec2-3-216-239-69.compute-1.amazonaws.com/restapi/v1/vtews/update",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "x": 660,
+        "y": 600,
+        "wires": [
+            [
+                "c61cf293.4b3c1"
+            ]
+        ]
+    },
+    {
+        "id": "c61cf293.4b3c1",
+        "type": "debug",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "4ca3d888.f10bf8",
+        "type": "change",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "strike",
+                "pt": "flow",
+                "to": "payload.strikePrice",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "accountID",
+                "pt": "flow",
+                "to": "payload.accountID",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 220,
+        "wires": [
+            [
+                "49edf42d.68f88c",
+                "ebd7f060.48838"
+            ]
+        ]
+    },
+    {
+        "id": "ea423ac2.1068e8",
+        "type": "change",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "rtPrice",
+                "pt": "flow",
+                "to": "payload.result[0].PRICE",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "spread",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "dResp",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 360,
+        "wires": [
+            [
+                "4486f4d.e02bd0c"
+            ]
+        ]
+    },
+    {
+        "id": "c49974c5.2cf208",
+        "type": "debug",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "d6f571f0.855be",
+        "type": "debug",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "436082a2.d5bc9c",
+        "type": "debug",
+        "z": "bcad67a.8ddbf98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "61c83e79.63e14",
+        "type": "link in",
+        "z": "bcad67a.8ddbf98",
+        "name": "Vector 1",
+        "links": [
+            "3c5f6278.44fcbe",
+            "8435b9bb.903d18"
+        ],
+        "x": 75,
+        "y": 220,
+        "wires": [
+            [
+                "4ca3d888.f10bf8"
+            ]
+        ]
+    },
+    {
+        "id": "1668b7c09ba45de5",
+        "type": "inject",
+        "z": "bcad67a.8ddbf98",
+        "name": "Grid Query Timer",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "ebd7f060.48838"
+            ]
+        ]
+    }
+]
