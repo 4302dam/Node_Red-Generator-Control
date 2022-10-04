@@ -210,7 +210,7 @@
             },
             {
                 "p": "payload.strikePrice",
-                "v": "90",
+                "v": "15",
                 "vt": "num"
             }
         ],
