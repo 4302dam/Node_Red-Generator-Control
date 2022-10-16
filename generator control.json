@@ -24,7 +24,7 @@
     {
         "id": "9752ea5680f4eb7a",
         "type": "tab",
-        "label": "Flow 2",
+        "label": "Generator Control 2",
         "disabled": false,
         "info": "",
         "env": []
@@ -1395,14 +1395,14 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "300",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 140,
+        "x": 150,
         "y": 220,
         "wires": [
             [
