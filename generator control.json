@@ -220,7 +220,7 @@
         "props": [
             {
                 "p": "payload.accountID",
-                "v": "3x97",
+                "v": "3x55",
                 "vt": "str"
             },
             {
@@ -715,7 +715,14 @@
         "name": "",
         "props": [
             {
-                "p": "payload"
+                "p": "payload.account",
+                "v": "3x97",
+                "vt": "str"
+            },
+            {
+                "p": "payload.strike",
+                "v": "30",
+                "vt": "str"
             }
         ],
         "repeat": "",
@@ -723,9 +730,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 80,
+        "x": 70,
         "y": 240,
         "wires": [
             [
