@@ -720,7 +720,7 @@
                 "vt": "str"
             },
             {
-                "p": "payload.strike",
+                "p": "payload.strikePrice",
                 "v": "30",
                 "vt": "str"
             }
