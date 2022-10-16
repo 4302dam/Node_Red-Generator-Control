@@ -2,7 +2,7 @@
     {
         "id": "bcad67a.8ddbf98",
         "type": "tab",
-        "label": "Generator Control ",
+        "label": "Generator Control 1",
         "disabled": false,
         "info": ""
     },
@@ -456,10 +456,9 @@
         "id": "61c83e79.63e14",
         "type": "link in",
         "z": "bcad67a.8ddbf98",
-        "name": "Vector 1",
+        "name": "Generator Vector 1",
         "links": [
-            "3c5f6278.44fcbe",
-            "8435b9bb.903d18"
+            "3c5f6278.44fcbe"
         ],
         "x": 75,
         "y": 160,
@@ -910,12 +909,10 @@
         "id": "3c5f6278.44fcbe",
         "type": "link out",
         "z": "13e1b21bf6396596",
-        "name": "Vector 1",
+        "name": "Generator Vector 1",
+        "mode": "link",
         "links": [
             "61c83e79.63e14",
-            "2aaebb16.a8b8f4",
-            "c0a93263.ccf94",
-            "5514e89d.9da0b8",
             "beaeda98a1efc9ac"
         ],
         "x": 935,
@@ -926,10 +923,9 @@
         "id": "71020d90.391fd4",
         "type": "link out",
         "z": "13e1b21bf6396596",
-        "name": "Gemerator Vector 2",
-        "links": [
-            "5514e89d.9da0b8"
-        ],
+        "name": "Generator Vector 2",
+        "mode": "link",
+        "links": [],
         "x": 935,
         "y": 220,
         "wires": []
@@ -1373,10 +1369,9 @@
         "id": "beaeda98a1efc9ac",
         "type": "link in",
         "z": "9752ea5680f4eb7a",
-        "name": "Vector 1",
+        "name": "Generator Vector 2",
         "links": [
-            "3c5f6278.44fcbe",
-            "8435b9bb.903d18"
+            "3c5f6278.44fcbe"
         ],
         "x": 55,
         "y": 80,
