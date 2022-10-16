@@ -484,7 +484,7 @@
         ],
         "repeat": "300",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
