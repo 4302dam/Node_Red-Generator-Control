@@ -3,14 +3,14 @@
         "id": "bcad67a.8ddbf98",
         "type": "tab",
         "label": "Generator Control 1",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
         "id": "13e1b21bf6396596",
         "type": "tab",
         "label": "Generator Vector Hub",
-        "disabled": false,
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -18,7 +18,7 @@
         "id": "9752ea5680f4eb7a",
         "type": "tab",
         "label": "Generator Control 2",
-        "disabled": false,
+        "disabled": true,
         "info": "",
         "env": []
     },
@@ -1332,7 +1332,9 @@
         "tls": "",
         "persist": false,
         "proxy": "",
+        "insecureHTTPParser": false,
         "authType": "",
+        "senderr": false,
         "x": 370,
         "y": 440,
         "wires": [
@@ -1352,6 +1354,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 530,
         "y": 580,
         "wires": [
@@ -1400,6 +1403,27 @@
                 "p": "postal_code",
                 "pt": "flow",
                 "to": "payload.postal_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "email",
+                "pt": "flow",
+                "to": "payload.email",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "first_Name",
+                "pt": "flow",
+                "to": "payload.first_Name",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "account_Name",
+                "pt": "flow",
+                "to": "account_Name",
                 "tot": "msg"
             }
         ],
@@ -1501,6 +1525,7 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
+        "libs": [],
         "x": 380,
         "y": 360,
         "wires": [
@@ -1616,7 +1641,7 @@
         "props": [
             {
                 "p": "payload.account_Name",
-                "v": "My Test Account",
+                "v": "Intelligence Applied",
                 "vt": "str"
             },
             {
@@ -1624,13 +1649,24 @@
                 "vt": "str"
             },
             {
-                "p": "payload"
+                "p": "payload.account_ID",
+                "v": "3x55",
+                "vt": "str"
             },
             {
-                "p": "payload"
+                "p": "payload.email",
+                "v": "march.david.a@gmail.com",
+                "vt": "str"
             },
             {
-                "p": "payload"
+                "p": "payload.first_Name",
+                "v": "David",
+                "vt": "str"
+            },
+            {
+                "p": "payload.postal_Code",
+                "v": "22314",
+                "vt": "str"
             }
         ],
         "repeat": "",
@@ -1638,14 +1674,27 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": ".account_Name",
-        "payloadType": "str",
         "x": 150,
         "y": 260,
         "wires": [
             [
                 "2a2354bd.39d3dc"
             ]
+        ]
+    },
+    {
+        "id": "2c99121d18dc0def",
+        "type": "e-mail out",
+        "z": "5f17c9d9bc28dab4",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "name": "",
+        "dname": "",
+        "x": 750,
+        "y": 520,
+        "wires": [
+            []
         ]
     }
 ]
