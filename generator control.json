@@ -1697,7 +1697,23 @@
         "x": 640,
         "y": 500,
         "wires": [
-            []
+            [
+                "47490ed3c03c258d"
+            ]
         ]
+    },
+    {
+        "id": "47490ed3c03c258d",
+        "type": "e-mail",
+        "z": "5f17c9d9bc28dab4",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "",
+        "dname": "",
+        "x": 850,
+        "y": 500,
+        "wires": []
     }
 ]
