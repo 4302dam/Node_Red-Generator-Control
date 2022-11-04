@@ -1711,8 +1711,8 @@
         "secure": true,
         "tls": true,
         "name": "",
-        "dname": "",
-        "x": 850,
+        "dname": "send alert",
+        "x": 860,
         "y": 500,
         "wires": []
     }
