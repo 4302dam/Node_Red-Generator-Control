@@ -1511,7 +1511,8 @@
         "y": 520,
         "wires": [
             [
-                "ac504bc6.abf9a8"
+                "ac504bc6.abf9a8",
+                "8d35292d0be8d02a"
             ]
         ]
     },
@@ -1691,10 +1692,29 @@
         "secure": true,
         "name": "",
         "dname": "",
-        "x": 750,
-        "y": 520,
+        "x": 810,
+        "y": 500,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "8d35292d0be8d02a",
+        "type": "function",
+        "z": "5f17c9d9bc28dab4",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 500,
+        "wires": [
+            [
+                "2c99121d18dc0def"
+            ]
         ]
     }
 ]
