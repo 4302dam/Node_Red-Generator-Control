@@ -1684,21 +1684,6 @@
         ]
     },
     {
-        "id": "2c99121d18dc0def",
-        "type": "e-mail out",
-        "z": "5f17c9d9bc28dab4",
-        "server": "smtp.gmail.com",
-        "port": "465",
-        "secure": true,
-        "name": "",
-        "dname": "",
-        "x": 810,
-        "y": 500,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "8d35292d0be8d02a",
         "type": "function",
         "z": "5f17c9d9bc28dab4",
@@ -1712,9 +1697,7 @@
         "x": 640,
         "y": 500,
         "wires": [
-            [
-                "2c99121d18dc0def"
-            ]
+            []
         ]
     }
 ]
