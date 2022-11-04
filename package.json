@@ -3,7 +3,8 @@
     "description": "The flows associated with getting market data and controlling the generator. ",
     "version": "0.0.1",
     "dependencies": {
-        "item": ""
+        "item": "",
+        "node-red-contrib-email-out": "0.1.1"
     },
     "node-red": {
         "settings": {
