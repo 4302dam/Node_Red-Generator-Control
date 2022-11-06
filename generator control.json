@@ -31,6 +31,14 @@
         "env": []
     },
     {
+        "id": "473b600eeb5977f9",
+        "type": "tab",
+        "label": "Mail Test",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "d88ffa19.8b6438",
         "type": "http request",
         "z": "bcad67a.8ddbf98",
@@ -1715,5 +1723,48 @@
         "x": 860,
         "y": 500,
         "wires": []
+    },
+    {
+        "id": "1acacc9bc1ff696c",
+        "type": "e-mail",
+        "z": "473b600eeb5977f9",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "march.david.a@gmail.com",
+        "dname": "",
+        "x": 420,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "607da81e66d4d109",
+        "type": "inject",
+        "z": "473b600eeb5977f9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "1acacc9bc1ff696c"
+            ]
+        ]
     }
 ]
