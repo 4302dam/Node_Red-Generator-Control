@@ -1733,8 +1733,8 @@
         "secure": true,
         "tls": false,
         "name": "march.david.a@gmail.com",
-        "dname": "",
-        "x": 420,
+        "dname": "AWS Node-RED",
+        "x": 380,
         "y": 140,
         "wires": []
     },
