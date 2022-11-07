@@ -1717,7 +1717,7 @@
         "server": "smtp.gmail.com",
         "port": "465",
         "secure": true,
-        "tls": false,
+        "tls": true,
         "name": "march.david.a@gmail.com",
         "dname": "send alert",
         "x": 860,
