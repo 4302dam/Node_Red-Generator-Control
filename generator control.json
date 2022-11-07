@@ -1716,7 +1716,7 @@
         "z": "5f17c9d9bc28dab4",
         "server": "smtp.gmail.com",
         "port": "465",
-        "secure": false,
+        "secure": true,
         "tls": false,
         "name": "march.david.a@gmail.com",
         "dname": "send alert",
