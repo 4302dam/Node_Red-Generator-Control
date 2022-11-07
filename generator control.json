@@ -1731,7 +1731,7 @@
         "server": "smtp.gmail.com",
         "port": "465",
         "secure": true,
-        "tls": false,
+        "tls": true,
         "name": "march.david.a@gmail.com",
         "dname": "AWS Node-RED",
         "x": 380,
